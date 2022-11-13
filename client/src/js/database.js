@@ -1,29 +1,32 @@
 import { openDB } from "idb";
 
+// Function to initiate creation of databse
 const initdb = async () =>
   openDB("jate", 1, {
     upgrade(db) {
+      // If the database already exists - return the database
       if (db.objectStoreNames.contains("jate")) {
         console.log("jate database already exists");
         return;
       }
+      // If the database doesn't already exist - and give each entry an autoincrementing ID
       db.createObjectStore("jate", { keyPath: "id", autoIncrement: true });
       console.log("jate database created");
     },
   });
 
-// TODO: Add logic to a method that accepts some content and adds it to the database
+// PutDB to add content from texteditor into the database 
 export const putDb = async (content) => {
   console.log("PUT to the database");
   const editorDB = await openDB("jate", 1);
   const tx = editorDB.transaction("jate", "readwrite");
   const store = tx.objectStore("jate");
-  const request = store.add({ value: content }); //QUESTION: what should go in this object? where do I look?
+  const request = store.add({ value: content }); 
   const result = await request;
   console.log("Your data has been saved to the database", result);
 };
 
-// TODO: Add logic for a method that gets all the content from the database
+// Get method to retrieve data from the database
 export const getDb = async () => {
   console.log("GETTING from the database");
   const editorDB = await openDB("jate", 1);
@@ -36,4 +39,5 @@ export const getDb = async () => {
     : console.error("getDb not implemented");
 };
 
+// Run initdb() function to find/create database
 initdb();
