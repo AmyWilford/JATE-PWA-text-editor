@@ -6,7 +6,7 @@
 - [Technologies-Used](#technologies-used)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Demo](#demo)
+- [Deployment](#deployment)
 - [License](#license)
 - [Credits](#credits)
 
